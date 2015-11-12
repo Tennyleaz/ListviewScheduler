@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class SocketHandler {
             socket = new Socket();
             socket.connect(new InetSocketAddress(ip, port));
             isCreated = true;
-            socket.setSoTimeout(2000);
+            //socket.setSoTimeout(2000);
             in = socket.getInputStream();
             out = socket.getOutputStream();
         }
@@ -51,6 +52,18 @@ public class SocketHandler {
 
     public static synchronized void setSocket(Socket socket){
         SocketHandler.socket = socket;
+    }
+
+    public static synchronized void setTimeout(boolean timeout, int duration) {
+        try {
+            if (timeout) {
+                socket.setSoTimeout(duration);
+            } else {
+                socket.setSoTimeout(0);
+            }
+        }catch (SocketException e) {
+            System.out.println("setTimeout Error: " + e.getMessage());
+        }
     }
 
     public static synchronized String getOutput(){

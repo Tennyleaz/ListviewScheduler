@@ -35,8 +35,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    static final String SERVERIP = "192.168.1.250";  //"140.113.167.14";
-    static final int SERVERPORT = 9000; //8000= echo server, 9000=real server
+    //static final String SERVERIP = "192.168.1.250";  //"140.113.167.14";
+    //static final int SERVERPORT = 9000; //8000= echo server, 9000=real server
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitServer() {
         Log.d("mylog", "InitServer...");
+        SocketHandler.setTimeout(true, 2000);
         String s = "QUERY\tSCHEDULE_DETAIL<END>";
         SocketHandler.writeToSocket(s);
         //Log.d("mylog", "send:" + s);
