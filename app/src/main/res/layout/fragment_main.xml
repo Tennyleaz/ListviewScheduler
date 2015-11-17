@@ -189,7 +189,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="0">
                 <ListView
                     android:layout_width="match_parent"
@@ -199,7 +199,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="1">
                 <ListView
                     android:layout_width="match_parent"
@@ -209,7 +209,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="2">
                 <ListView
                     android:layout_width="match_parent"
@@ -219,7 +219,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="3">
                 <ListView
                     android:layout_width="match_parent"
@@ -229,7 +229,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="4">
                 <ListView
                     android:layout_width="match_parent"
@@ -239,7 +239,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="5">
                 <ListView
                     android:layout_width="match_parent"
@@ -249,7 +249,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="6">
                 <ListView
                     android:layout_width="match_parent"
@@ -259,7 +259,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="7">
                 <ListView
                     android:layout_width="match_parent"
@@ -269,7 +269,7 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="210dp"
+                android:layout_height="240dp"
                 android:layout_column="8">
                 <ListView
                     android:layout_width="match_parent"

@@ -110,19 +110,19 @@ public class MainActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) { }
         });*/
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
-        msg = (TextView) findViewById(R.id.msg);
+        /*msg = (TextView) findViewById(R.id.msg);
         Intent intent = getIntent();
         String m = intent.getStringExtra("MSG");
-        msg.setText(m);
+        msg.setText(m);*/
         workerList = new HashMap<String, Worker>();
         listAdapter1_1 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         listAdapter1_2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
@@ -690,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
             for(String s: lines) {
                 Log.d("Mylog", "s in line=" + s);
                 if (s != null && s.contains("MSG\t")) {
-                    s = s.replaceAll("SWAP_MSG\t", "");
+                    s = s.replaceAll("MSG\t", "");
                     //swapMsg.setVisibility(View.VISIBLE);
                     //swapMsg.setText(s);
                 } else if (s != null && s.contains("\t")) {
