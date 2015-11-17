@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="請假"
+                android:text="出差"
                 android:id="@+id/textView"
                 android:layout_column="0" />
 
@@ -31,10 +31,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="出差"
+                android:text="請假"
                 android:id="@+id/textView1"
                 android:layout_column="1" />
-            </TableRow>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="補休"
+                android:id="@+id/textVie2"
+                android:layout_column="2" />
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,7 +59,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/listViewOff2"
                 android:layout_column="1" />
-            </TableRow>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listViewOff3"
+                android:layout_column="2" />
+        </TableRow>
 
     </TableLayout>
 

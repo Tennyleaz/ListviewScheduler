@@ -52,15 +52,16 @@ public class MainActivity extends AppCompatActivity {
     private static ProgressDialog pd;
     private AsyncTask task = null;
     private boolean connected;
-    private static ListView lv1_1, lv1_2, lv1_3, lv1_4, lv1_5, lv1_6, lv1_7, lv1_8, lv1_9, lv2_1, lv2_2, lv2_3, lv2_4, lv2_5, lv2_6, lv2_7, lv2_8, lv2_9, lvO1, lvO2, lvO3, lvO4, lvO5, lvO6, lvOff1, lvOff2;
+    private static ListView lv1_1, lv1_2, lv1_3, lv1_4, lv1_5, lv1_6, lv1_7, lv1_8, lv1_9, lv2_1, lv2_2, lv2_3, lv2_4, lv2_5, lv2_6, lv2_7, lv2_8, lv2_9, lvO1, lvO2, lvO3, lvO4, lvO5, lvO6, lvOff1, lvOff2, lvOff3;
     private static ArrayAdapter<String> listAdapter1_1, listAdapter1_2, listAdapter1_3, listAdapter1_4, listAdapter1_5, listAdapter1_6, listAdapter1_7, listAdapter1_8, listAdapter1_9,
             listAdapter2_1, listAdapter2_2, listAdapter2_3, listAdapter2_4, listAdapter2_5, listAdapter2_6, listAdapter2_7, listAdapter2_8, listAdapter2_9,
-            listAdapterO1, listAdapterO2, listAdapterO3, listAdapterO4, listAdapterO5, listAdapterO6, listAdapterOff1, listAdapterOff2;
+            listAdapterO1, listAdapterO2, listAdapterO3, listAdapterO4, listAdapterO5, listAdapterO6, listAdapterOff1, listAdapterOff2, listAdapterOff3;
     //private static ArrayList<Worker> workerList;
     public static HashMap reverseWorkPlacesMap, reverseWorkTimesMap;
     private static HashMap workerList, workPlacesMap, workTimesMap;
-    private static boolean dataChanged;
+    private static boolean dataChanged, mainLineNeedUpdate, officeNeedUpdate, offlineNeedUpdate;
     private static String changedWorkerName;
+    private static int currentPage;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -83,6 +84,31 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+        currentPage = 0;
+        /*tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.d("mylog", "currentPage is: " + tab.getText());
+                String pagename = tab.getText().toString();
+                switch (pagename) {
+                    case "主生產線":
+                        currentPage = 1;
+                        break;
+                    case "其他部門":
+                        currentPage = 2;
+                        break;
+                    case "請假差勤":
+                        currentPage = 3;
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) { }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) { }
+        });*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -124,8 +150,12 @@ public class MainActivity extends AppCompatActivity {
         listAdapterO6 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         listAdapterOff1 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         listAdapterOff2 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
+        listAdapterOff3 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         dataChanged = false;
         changedWorkerName = null;
+        mainLineNeedUpdate = false;
+        officeNeedUpdate = false;
+        offlineNeedUpdate = false;
 
         pd = ProgressDialog.show(MainActivity.this, "連線中", "Please wait...");    /* 開啟一個新線程，在新線程裡執行耗時的方法 */
         new Thread(new Runnable() {
@@ -254,6 +284,10 @@ public class MainActivity extends AppCompatActivity {
                             listAdapterOff2.add(w[1]);
                             isAbsent = true;
                             break;
+                        case "5004":
+                            listAdapterOff3.add(w[1]);
+                            isAbsent = true;
+                            break;
                     }
                     if(!isAbsent) {
                         switch (w[3]) {
@@ -372,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialoginterface, int i) {
                             //remove old worker place
-                            if (w.WorkTime.equals("5000") || w.WorkTime.equals("5001")) {
+                            if (w.WorkTime.equals("5000") || w.WorkTime.equals("5001")) {  //{"早班", "晚班"
                                 switch (w.WorkPlace) {
                                     case "6000":
                                         listAdapterO1.remove(w.Name);
@@ -480,14 +514,17 @@ public class MainActivity extends AppCompatActivity {
                             } else if (w.WorkTime.equals("5003")) {  //remove 請假
                                 listAdapterOff2.remove(w.Name);
                                 listAdapterOff2.notifyDataSetChanged();
-                            }  //end if
+                            } else if (w.WorkTime.equals("5004")) {  //remove 請假
+                                listAdapterOff3.remove(w.Name);
+                                listAdapterOff3.notifyDataSetChanged();
+                            }//end if
 
                             boolean isAbsent = false;
                             String selectedPlace = placeSpinner.getSelectedItem().toString();
                             String selectedTime = timeSpinner.getSelectedItem().toString();
                             w.WorkPlace = workPlacesMap.get(selectedPlace).toString();
                             w.WorkTime = workTimesMap.get(selectedTime).toString();
-                            switch (selectedTime) {
+                            switch (w.WorkTime) {
                                 case "5000":
                                     break;
                                 case "5001":
@@ -502,7 +539,13 @@ public class MainActivity extends AppCompatActivity {
                                     listAdapterOff2.add(w.Name);
                                     listAdapterOff2.notifyDataSetChanged();
                                     break;
+                                case "5004":
+                                    isAbsent = true;
+                                    listAdapterOff3.add(w.Name);
+                                    listAdapterOff3.notifyDataSetChanged();
+                                    break;
                             }
+                            Log.d("mylog", "worker " + w.Name + " goto " + w.WorkPlace + " time:" +w.WorkTime + ", isAbsent=" + isAbsent);
                             if (!isAbsent) { //not absent, change schedule
                                 switch (w.WorkPlace) {
                                     case "6000":
@@ -787,6 +830,16 @@ public class MainActivity extends AppCompatActivity {
             listAdapter1_1.notifyDataSetChanged();*/
             return rootView;
         }
+
+        @Override
+        public void setUserVisibleHint(boolean isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser) {
+                //相當於Fragment的onResume
+                Log.d("mylog","fragment 1 is visible");
+                currentPage = 1;
+            }
+        }
     }
 
     public static class FragmentOffice extends Fragment {
@@ -826,6 +879,16 @@ public class MainActivity extends AppCompatActivity {
             lvO6.setOnItemClickListener(changeScheduleListener);
             return rootView;
         }
+
+        @Override
+        public void setUserVisibleHint(boolean isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser) {
+                //相當於Fragment的onResume
+                Log.d("mylog","fragment 2 is visible");
+                currentPage = 2;
+            }
+        }
     }
 
     public static class FragmentOffline extends Fragment {
@@ -847,11 +910,24 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_offline, container, false);
             lvOff1 = (ListView) rootView.findViewById(R.id.listViewOff1);
             lvOff2 = (ListView) rootView.findViewById(R.id.listViewOff2);
+            lvOff3 = (ListView) rootView.findViewById(R.id.listViewOff3);
             lvOff1.setAdapter(listAdapterOff1);
             lvOff2.setAdapter(listAdapterOff2);
+            lvOff3.setAdapter(listAdapterOff3);
             lvOff1.setOnItemClickListener(changeScheduleListener);
             lvOff2.setOnItemClickListener(changeScheduleListener);
+            lvOff3.setOnItemClickListener(changeScheduleListener);
             return rootView;
+        }
+
+        @Override
+        public void setUserVisibleHint(boolean isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser) {
+                //相當於Fragment的onResume
+                Log.d("mylog","fragment 3 is visible");
+                currentPage = 3;
+            }
         }
     }
 
