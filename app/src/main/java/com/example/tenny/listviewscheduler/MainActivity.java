@@ -48,20 +48,19 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private String str1 = "default error -1";
     private String schedule_detail, work_area, work_type;
-    private TextView connectState, msg;
     private static ProgressDialog pd;
     private AsyncTask task = null;
-    private boolean connected;
     private static ListView lv1_1, lv1_2, lv1_3, lv1_4, lv1_5, lv1_6, lv1_7, lv1_8, lv1_9, lv2_1, lv2_2, lv2_3, lv2_4, lv2_5, lv2_6, lv2_7, lv2_8, lv2_9, lvO1, lvO2, lvO3, lvO4, lvO5, lvO6, lvOff1, lvOff2, lvOff3;
-    private static ArrayAdapter<String> listAdapter1_1, listAdapter1_2, listAdapter1_3, listAdapter1_4, listAdapter1_5, listAdapter1_6, listAdapter1_7, listAdapter1_8, listAdapter1_9,
+    private static WorkerArrayAdapter listAdapter1_1, listAdapter1_2, listAdapter1_3, listAdapter1_4, listAdapter1_5, listAdapter1_6, listAdapter1_7, listAdapter1_8, listAdapter1_9,
             listAdapter2_1, listAdapter2_2, listAdapter2_3, listAdapter2_4, listAdapter2_5, listAdapter2_6, listAdapter2_7, listAdapter2_8, listAdapter2_9,
             listAdapterO1, listAdapterO2, listAdapterO3, listAdapterO4, listAdapterO5, listAdapterO6, listAdapterOff1, listAdapterOff2, listAdapterOff3;
     //private static ArrayList<Worker> workerList;
     public static HashMap reverseWorkPlacesMap, reverseWorkTimesMap;
     private static HashMap workerList, workPlacesMap, workTimesMap;
-    private static boolean dataChanged, mainLineNeedUpdate, officeNeedUpdate, offlineNeedUpdate;
+    private static boolean dataChanged;
     private static String changedWorkerName;
     private static int currentPage;
+    private ArrayList<Worker> lm11, lm12, lm13, lm14, lm15, lm16, lm17, lm18, lm19, lm21, lm22, lm23, lm24, lm25, lm26, lm27, lm28, lm29, lo1, lo2, lo3, lo4, lo5, lo6, lof1, lof2, lof3;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -102,14 +101,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                 }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) { }
-
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
         });*/
-
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,44 +114,70 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-
         /*msg = (TextView) findViewById(R.id.msg);
         Intent intent = getIntent();
         String m = intent.getStringExtra("MSG");
         msg.setText(m);*/
         workerList = new HashMap<String, Worker>();
-        listAdapter1_1 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_4 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_5 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_6 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_7 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_8 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter1_9 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_1 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_3 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_4 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_5 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_6 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_7 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_8 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapter2_9 = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterO1 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterO2 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterO3 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterO4 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterO5 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterO6 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterOff1 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterOff2 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
-        listAdapterOff3 =  new ArrayAdapter(this, android.R.layout.simple_list_item_1);
+        lm11 = new ArrayList<Worker>();
+        lm12 = new ArrayList<Worker>();
+        lm13 = new ArrayList<Worker>();
+        lm14 = new ArrayList<Worker>();
+        lm15 = new ArrayList<Worker>();
+        lm16 = new ArrayList<Worker>();
+        lm17 = new ArrayList<Worker>();
+        lm18 = new ArrayList<Worker>();
+        lm19 = new ArrayList<Worker>();
+        lm21 = new ArrayList<Worker>();
+        lm22 = new ArrayList<Worker>();
+        lm23 = new ArrayList<Worker>();
+        lm24 = new ArrayList<Worker>();
+        lm25 = new ArrayList<Worker>();
+        lm26 = new ArrayList<Worker>();
+        lm27 = new ArrayList<Worker>();
+        lm28 = new ArrayList<Worker>();
+        lm29 = new ArrayList<Worker>();
+        lo1 = new ArrayList<Worker>();
+        lo2 = new ArrayList<Worker>();
+        lo3 = new ArrayList<Worker>();
+        lo4 = new ArrayList<Worker>();
+        lo5 = new ArrayList<Worker>();
+        lo6 = new ArrayList<Worker>();
+        lof1 = new ArrayList<Worker>();
+        lof2 = new ArrayList<Worker>();
+        lof3 = new ArrayList<Worker>();
+        listAdapter1_1 = new WorkerArrayAdapter(this, lm11);
+        listAdapter1_2 = new WorkerArrayAdapter(this, lm12);
+        listAdapter1_3 = new WorkerArrayAdapter(this, lm13);
+        listAdapter1_4 = new WorkerArrayAdapter(this, lm14);
+        listAdapter1_5 = new WorkerArrayAdapter(this, lm15);
+        listAdapter1_6 = new WorkerArrayAdapter(this, lm16);
+        listAdapter1_7 = new WorkerArrayAdapter(this, lm17);
+        listAdapter1_8 = new WorkerArrayAdapter(this, lm18);
+        listAdapter1_9 = new WorkerArrayAdapter(this, lm19);
+        listAdapter2_1 = new WorkerArrayAdapter(this, lm21);
+        listAdapter2_2 = new WorkerArrayAdapter(this, lm22);
+        listAdapter2_3 = new WorkerArrayAdapter(this, lm23);
+        listAdapter2_4 = new WorkerArrayAdapter(this, lm24);
+        listAdapter2_5 = new WorkerArrayAdapter(this, lm25);
+        listAdapter2_6 = new WorkerArrayAdapter(this, lm26);
+        listAdapter2_7 = new WorkerArrayAdapter(this, lm27);
+        listAdapter2_8 = new WorkerArrayAdapter(this, lm28);
+        listAdapter2_9 = new WorkerArrayAdapter(this, lm29);
+        listAdapterO1 =  new WorkerArrayAdapter(this, lo1);
+        listAdapterO2 =  new WorkerArrayAdapter(this, lo2);
+        listAdapterO3 =  new WorkerArrayAdapter(this, lo3);
+        listAdapterO4 =  new WorkerArrayAdapter(this, lo4);
+        listAdapterO5 =  new WorkerArrayAdapter(this, lo5);
+        listAdapterO6 =  new WorkerArrayAdapter(this, lo6);
+        listAdapterOff1 =  new WorkerArrayAdapter(this, lof1);
+        listAdapterOff2 =  new WorkerArrayAdapter(this, lof2);
+        listAdapterOff3 =  new WorkerArrayAdapter(this, lof3);
         dataChanged = false;
         changedWorkerName = null;
-        mainLineNeedUpdate = false;
-        officeNeedUpdate = false;
-        offlineNeedUpdate = false;
+        //mainLineNeedUpdate = false;
+        //officeNeedUpdate = false;
+        //offlineNeedUpdate = false;
 
         pd = ProgressDialog.show(MainActivity.this, "連線中", "Please wait...");    /* 開啟一個新線程，在新線程裡執行耗時的方法 */
         new Thread(new Runnable() {
@@ -170,14 +192,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-    @Override
+        @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -188,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     private void InitServer() {
         Log.d("mylog", "InitServer...");
@@ -261,6 +282,33 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateUI() {
         Log.d("mylog", "updateUI...");
+        listAdapterOff1.clear();
+        listAdapterOff2.clear();
+        listAdapterOff3.clear();
+        listAdapterO1.clear();
+        listAdapterO2.clear();
+        listAdapterO3.clear();
+        listAdapterO4.clear();
+        listAdapterO5.clear();
+        listAdapterO6.clear();
+        listAdapter1_1.clear();
+        listAdapter1_2.clear();
+        listAdapter1_3.clear();
+        listAdapter1_4.clear();
+        listAdapter1_5.clear();
+        listAdapter1_6.clear();
+        listAdapter1_7.clear();
+        listAdapter1_8.clear();
+        listAdapter1_9.clear();
+        listAdapter2_1.clear();
+        listAdapter2_2.clear();
+        listAdapter2_3.clear();
+        listAdapter2_4.clear();
+        listAdapter2_5.clear();
+        listAdapter2_6.clear();
+        listAdapter2_7.clear();
+        listAdapter2_8.clear();
+        listAdapter2_9.clear();
 
         if(schedule_detail!=null) {
             schedule_detail = schedule_detail.replaceAll("QUERY_REPLY\t", "");
@@ -277,91 +325,91 @@ public class MainActivity extends AppCompatActivity {
                     boolean isAbsent = false;
                     switch (w[2]) {
                         case "5002":
-                            listAdapterOff1.add(w[1]);
+                            listAdapterOff1.add(newWorker);
                             isAbsent = true;
                             break;
                         case "5003":
-                            listAdapterOff2.add(w[1]);
+                            listAdapterOff2.add(newWorker);
                             isAbsent = true;
                             break;
                         case "5004":
-                            listAdapterOff3.add(w[1]);
+                            listAdapterOff3.add(newWorker);
                             isAbsent = true;
                             break;
                     }
                     if(!isAbsent) {
                         switch (w[3]) {
                             case "6000":
-                                listAdapterO1.add(w[1]);
+                                listAdapterO1.add(newWorker);
                                 break;
                             case "6001":
-                                listAdapterO2.add(w[1]);
+                                listAdapterO2.add(newWorker);
                                 break;
                             case "6002":
-                                listAdapterO3.add(w[1]);
+                                listAdapterO3.add(newWorker);
                                 break;
                             case "6003":
-                                listAdapterO4.add(w[1]);
+                                listAdapterO4.add(newWorker);
                                 break;
                             case "6004":
-                                listAdapterO5.add(w[1]);
+                                listAdapterO5.add(newWorker);
                                 break;
                             case "6005":
-                                listAdapterO6.add(w[1]);
+                                listAdapterO6.add(newWorker);
                                 break;
                             case "6010":
-                                listAdapter1_1.add(w[1]);
+                                listAdapter1_1.add(newWorker);
                                 break;
                             case "6011":
-                                listAdapter2_1.add(w[1]);
+                                listAdapter2_1.add(newWorker);
                                 break;
                             case "6020":
-                                listAdapter1_2.add(w[1]);
+                                listAdapter1_2.add(newWorker);
                                 break;
                             case "6021":
-                                listAdapter2_2.add(w[1]);
+                                listAdapter2_2.add(newWorker);
                                 break;
                             case "6030":
-                                listAdapter1_3.add(w[1]);
+                                listAdapter1_3.add(newWorker);
                                 break;
                             case "6031":
-                                listAdapter2_3.add(w[1]);
+                                listAdapter2_3.add(newWorker);
                                 break;
                             case "6040":
-                                listAdapter1_4.add(w[1]);
+                                listAdapter1_4.add(newWorker);
                                 break;
                             case "6041":
-                                listAdapter2_4.add(w[1]);
+                                listAdapter2_4.add(newWorker);
                                 break;
                             case "6050":
-                                listAdapter1_5.add(w[1]);
+                                listAdapter1_5.add(newWorker);
                                 break;
                             case "6051":
-                                listAdapter2_5.add(w[1]);
+                                listAdapter2_5.add(newWorker);
                                 break;
                             case "6060":
-                                listAdapter1_6.add(w[1]);
+                                listAdapter1_6.add(newWorker);
                                 break;
                             case "6061":
-                                listAdapter2_6.add(w[1]);
+                                listAdapter2_6.add(newWorker);
                                 break;
                             case "6070":
-                                listAdapter1_7.add(w[1]);
+                                listAdapter1_7.add(newWorker);
                                 break;
                             case "6071":
-                                listAdapter2_7.add(w[1]);
+                                listAdapter2_7.add(newWorker);
                                 break;
                             case "6080":
-                                listAdapter1_8.add(w[1]);
+                                listAdapter1_8.add(newWorker);
                                 break;
                             case "6081":
-                                listAdapter2_8.add(w[1]);
+                                listAdapter2_8.add(newWorker);
                                 break;
                             case "6090":
-                                listAdapter1_9.add(w[1]);
+                                listAdapter1_9.add(newWorker);
                                 break;
                             case "6091":
-                                listAdapter2_9.add(w[1]);
+                                listAdapter2_9.add(newWorker);
                                 break;
                         } //end switch
                     } //end if
@@ -374,7 +422,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             ListView listView = (ListView) parent;
-            final Worker w = (Worker) workerList.get(listView.getItemAtPosition(position).toString());
+            final Worker w = (Worker) listView.getItemAtPosition(position);
             String p = (String) reverseWorkPlacesMap.get(w.WorkPlace);
             String t = (String) reverseWorkTimesMap.get(w.WorkTime);
 
@@ -382,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
             LayoutInflater inflater = LayoutInflater.from(listView.getContext());
             final View v = inflater.inflate(R.layout.alert_dialog_layout, null);
             final TextView name = (TextView) v.findViewById(R.id.name);
-            name.setText(listView.getItemAtPosition(position).toString());
+            name.setText(w.Name);
             final TextView place = (TextView) v.findViewById(R.id.place);
             place.setText(p);
             final TextView time = (TextView) v.findViewById(R.id.time);
@@ -399,6 +447,10 @@ public class MainActivity extends AppCompatActivity {
             timeList = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_spinner_dropdown_item, times);
             placeSpinner.setAdapter(placeList);
             timeSpinner.setAdapter(timeList);
+            int timeSpinnerPosition = timeList.getPosition(t);
+            int placeSpinnerPosition = placeList.getPosition(p);
+            timeSpinner.setSelection(timeSpinnerPosition);
+            placeSpinner.setSelection(placeSpinnerPosition);
 
             dialog.setTitle("排班編輯");
             dialog.setView(v);
@@ -409,99 +461,99 @@ public class MainActivity extends AppCompatActivity {
                             if (w.WorkTime.equals("5000") || w.WorkTime.equals("5001")) {  //{"早班", "晚班"
                                 switch (w.WorkPlace) {
                                     case "6000":
-                                        listAdapterO1.remove(w.Name);
+                                        listAdapterO1.remove(w);
                                         listAdapterO1.notifyDataSetChanged();
                                         break;
                                     case "6001":
-                                        listAdapterO2.remove(w.Name);
+                                        listAdapterO2.remove(w);
                                         listAdapterO2.notifyDataSetChanged();
                                         break;
                                     case "6002":
-                                        listAdapterO3.remove(w.Name);
+                                        listAdapterO3.remove(w);
                                         listAdapterO3.notifyDataSetChanged();
                                         break;
                                     case "6003":
-                                        listAdapterO4.remove(w.Name);
+                                        listAdapterO4.remove(w);
                                         listAdapterO4.notifyDataSetChanged();
                                         break;
                                     case "6004":
-                                        listAdapterO5.remove(w.Name);
+                                        listAdapterO5.remove(w);
                                         listAdapterO5.notifyDataSetChanged();
                                         break;
                                     case "6005":
-                                        listAdapterO6.remove(w.Name);
+                                        listAdapterO6.remove(w);
                                         listAdapterO6.notifyDataSetChanged();
                                         break;
                                     case "6010":
-                                        listAdapter1_1.remove(w.Name);
+                                        listAdapter1_1.remove(w);
                                         listAdapter1_1.notifyDataSetChanged();
                                         break;
                                     case "6011":
-                                        listAdapter2_1.remove(w.Name);
+                                        listAdapter2_1.remove(w);
                                         listAdapter2_1.notifyDataSetChanged();
                                         break;
                                     case "6020":
-                                        listAdapter1_2.remove(w.Name);
+                                        listAdapter1_2.remove(w);
                                         listAdapter1_2.notifyDataSetChanged();
                                         break;
                                     case "6021":
-                                        listAdapter2_2.remove(w.Name);
+                                        listAdapter2_2.remove(w);
                                         listAdapter2_2.notifyDataSetChanged();
                                         break;
                                     case "6030":
-                                        listAdapter1_3.remove(w.Name);
+                                        listAdapter1_3.remove(w);
                                         listAdapter1_3.notifyDataSetChanged();
                                         break;
                                     case "6031":
-                                        listAdapter2_3.remove(w.Name);
+                                        listAdapter2_3.remove(w);
                                         listAdapter2_3.notifyDataSetChanged();
                                         break;
                                     case "6040":
-                                        listAdapter1_4.remove(w.Name);
+                                        listAdapter1_4.remove(w);
                                         listAdapter1_4.notifyDataSetChanged();
                                         break;
                                     case "6041":
-                                        listAdapter2_4.remove(w.Name);
+                                        listAdapter2_4.remove(w);
                                         listAdapter2_4.notifyDataSetChanged();
                                         break;
                                     case "6050":
-                                        listAdapter1_5.remove(w.Name);
+                                        listAdapter1_5.remove(w);
                                         listAdapter1_5.notifyDataSetChanged();
                                         break;
                                     case "6051":
-                                        listAdapter2_5.remove(w.Name);
+                                        listAdapter2_5.remove(w);
                                         listAdapter2_5.notifyDataSetChanged();
                                         break;
                                     case "6060":
-                                        listAdapter1_6.remove(w.Name);
+                                        listAdapter1_6.remove(w);
                                         listAdapter1_6.notifyDataSetChanged();
                                         break;
                                     case "6061":
-                                        listAdapter2_6.remove(w.Name);
+                                        listAdapter2_6.remove(w);
                                         listAdapter2_6.notifyDataSetChanged();
                                         break;
                                     case "6070":
-                                        listAdapter1_7.remove(w.Name);
+                                        listAdapter1_7.remove(w);
                                         listAdapter1_7.notifyDataSetChanged();
                                         break;
                                     case "6071":
-                                        listAdapter2_7.remove(w.Name);
+                                        listAdapter2_7.remove(w);
                                         listAdapter2_7.notifyDataSetChanged();
                                         break;
                                     case "6080":
-                                        listAdapter1_8.remove(w.Name);
+                                        listAdapter1_8.remove(w);
                                         listAdapter1_8.notifyDataSetChanged();
                                         break;
                                     case "6081":
-                                        listAdapter2_8.remove(w.Name);
+                                        listAdapter2_8.remove(w);
                                         listAdapter2_8.notifyDataSetChanged();
                                         break;
                                     case "6090":
-                                        listAdapter1_9.remove(w.Name);
+                                        listAdapter1_9.remove(w);
                                         listAdapter1_9.notifyDataSetChanged();
                                         break;
                                     case "6091":
-                                        listAdapter2_9.remove(w.Name);
+                                        listAdapter2_9.remove(w);
                                         listAdapter2_9.notifyDataSetChanged();
                                         break;
                                     default:
@@ -509,13 +561,13 @@ public class MainActivity extends AppCompatActivity {
                                         break;
                                 } //end switch
                             } else if (w.WorkTime.equals("5002")) {  //remove 出差
-                                listAdapterOff1.remove(w.Name);
+                                listAdapterOff1.remove(w);
                                 listAdapterOff1.notifyDataSetChanged();
                             } else if (w.WorkTime.equals("5003")) {  //remove 請假
-                                listAdapterOff2.remove(w.Name);
+                                listAdapterOff2.remove(w);
                                 listAdapterOff2.notifyDataSetChanged();
                             } else if (w.WorkTime.equals("5004")) {  //remove 請假
-                                listAdapterOff3.remove(w.Name);
+                                listAdapterOff3.remove(w);
                                 listAdapterOff3.notifyDataSetChanged();
                             }//end if
 
@@ -531,17 +583,17 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case "5002":
                                     isAbsent = true;
-                                    listAdapterOff1.add(w.Name);
+                                    listAdapterOff1.add(w);
                                     listAdapterOff1.notifyDataSetChanged();
                                     break;
                                 case "5003":
                                     isAbsent = true;
-                                    listAdapterOff2.add(w.Name);
+                                    listAdapterOff2.add(w);
                                     listAdapterOff2.notifyDataSetChanged();
                                     break;
                                 case "5004":
                                     isAbsent = true;
-                                    listAdapterOff3.add(w.Name);
+                                    listAdapterOff3.add(w);
                                     listAdapterOff3.notifyDataSetChanged();
                                     break;
                             }
@@ -549,99 +601,99 @@ public class MainActivity extends AppCompatActivity {
                             if (!isAbsent) { //not absent, change schedule
                                 switch (w.WorkPlace) {
                                     case "6000":
-                                        listAdapterO1.add(w.Name);
+                                        listAdapterO1.add(w);
                                         listAdapterO1.notifyDataSetChanged();
                                         break;
                                     case "6001":
-                                        listAdapterO2.add(w.Name);
+                                        listAdapterO2.add(w);
                                         listAdapterO2.notifyDataSetChanged();
                                         break;
                                     case "6002":
-                                        listAdapterO3.add(w.Name);
+                                        listAdapterO3.add(w);
                                         listAdapterO3.notifyDataSetChanged();
                                         break;
                                     case "6003":
-                                        listAdapterO4.add(w.Name);
+                                        listAdapterO4.add(w);
                                         listAdapterO4.notifyDataSetChanged();
                                         break;
                                     case "6004":
-                                        listAdapterO5.add(w.Name);
+                                        listAdapterO5.add(w);
                                         listAdapterO5.notifyDataSetChanged();
                                         break;
                                     case "6005":
-                                        listAdapterO6.add(w.Name);
+                                        listAdapterO6.add(w);
                                         listAdapterO6.notifyDataSetChanged();
                                         break;
                                     case "6010":
-                                        listAdapter1_1.add(w.Name);
+                                        listAdapter1_1.add(w);
                                         listAdapter1_1.notifyDataSetChanged();
                                         break;
                                     case "6011":
-                                        listAdapter2_1.add(w.Name);
+                                        listAdapter2_1.add(w);
                                         listAdapter2_1.notifyDataSetChanged();
                                         break;
                                     case "6020":
-                                        listAdapter1_2.add(w.Name);
+                                        listAdapter1_2.add(w);
                                         listAdapter1_2.notifyDataSetChanged();
                                         break;
                                     case "6021":
-                                        listAdapter2_2.add(w.Name);
+                                        listAdapter2_2.add(w);
                                         listAdapter2_2.notifyDataSetChanged();
                                         break;
                                     case "6030":
-                                        listAdapter1_3.add(w.Name);
+                                        listAdapter1_3.add(w);
                                         listAdapter1_3.notifyDataSetChanged();
                                         break;
                                     case "6031":
-                                        listAdapter2_3.add(w.Name);
+                                        listAdapter2_3.add(w);
                                         listAdapter2_3.notifyDataSetChanged();
                                         break;
                                     case "6040":
-                                        listAdapter1_4.add(w.Name);
+                                        listAdapter1_4.add(w);
                                         listAdapter1_4.notifyDataSetChanged();
                                         break;
                                     case "6041":
-                                        listAdapter2_4.add(w.Name);
+                                        listAdapter2_4.add(w);
                                         listAdapter2_4.notifyDataSetChanged();
                                         break;
                                     case "6050":
-                                        listAdapter1_5.add(w.Name);
+                                        listAdapter1_5.add(w);
                                         listAdapter1_5.notifyDataSetChanged();
                                         break;
                                     case "6051":
-                                        listAdapter2_5.add(w.Name);
+                                        listAdapter2_5.add(w);
                                         listAdapter2_5.notifyDataSetChanged();
                                         break;
                                     case "6060":
-                                        listAdapter1_6.add(w.Name);
+                                        listAdapter1_6.add(w);
                                         listAdapter1_6.notifyDataSetChanged();
                                         break;
                                     case "6061":
-                                        listAdapter2_6.add(w.Name);
+                                        listAdapter2_6.add(w);
                                         listAdapter2_6.notifyDataSetChanged();
                                         break;
                                     case "6070":
-                                        listAdapter1_7.add(w.Name);
+                                        listAdapter1_7.add(w);
                                         listAdapter1_7.notifyDataSetChanged();
                                         break;
                                     case "6071":
-                                        listAdapter2_7.add(w.Name);
+                                        listAdapter2_7.add(w);
                                         listAdapter2_7.notifyDataSetChanged();
                                         break;
                                     case "6080":
-                                        listAdapter1_8.add(w.Name);
+                                        listAdapter1_8.add(w);
                                         listAdapter1_8.notifyDataSetChanged();
                                         break;
                                     case "6081":
-                                        listAdapter2_8.add(w.Name);
+                                        listAdapter2_8.add(w);
                                         listAdapter2_8.notifyDataSetChanged();
                                         break;
                                     case "6090":
-                                        listAdapter1_9.add(w.Name);
+                                        listAdapter1_9.add(w);
                                         listAdapter1_9.notifyDataSetChanged();
                                         break;
                                     case "6091":
-                                        listAdapter2_9.add(w.Name);
+                                        listAdapter2_9.add(w);
                                         listAdapter2_9.notifyDataSetChanged();
                                         break;
                                     default:
@@ -660,6 +712,7 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private class UpdateTask extends AsyncTask<Void, String, String> {
+        private boolean needReUpdate = false, afterUpdate = false;
         @Override
         protected String doInBackground(Void... v) {
             while (!isCancelled()) {
@@ -669,6 +722,13 @@ public class MainActivity extends AppCompatActivity {
                     SocketHandler.writeToSocket(cmd);
                     dataChanged = false;
                     changedWorkerName = null;
+                }
+                if(needReUpdate) {
+                    InitServer();
+                    afterUpdate = true;
+                    needReUpdate = false;
+                    publishProgress("");
+                    continue;
                 }
                 String result;
                 result = SocketHandler.getOutput();
@@ -680,6 +740,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onProgressUpdate(String... values) {
+            if(afterUpdate) {
+                afterUpdate = false;
+                updateUI();
+            }
             String result = values[0];
             if(result==null ||result.length() == 0) return;
             String[] lines = result.split("<END>");
@@ -690,11 +754,12 @@ public class MainActivity extends AppCompatActivity {
             for(String s: lines) {
                 Log.d("Mylog", "s in line=" + s);
                 if (s != null && s.contains("MSG\t")) {
-                    s = s.replaceAll("MSG\t", "");
+                    //s = s.replaceAll("MSG\t", "");
                     //swapMsg.setVisibility(View.VISIBLE);
                     //swapMsg.setText(s);
-                } else if (s != null && s.contains("\t")) {
-
+                } else if (s != null && s.contains("UPDATE_SCHEDULE")) {
+                    //s = s.replaceAll("UPDATE_SCHEDULE\t", "");
+                    needReUpdate = true;
                 }
             }
         }
