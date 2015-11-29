@@ -30,7 +30,7 @@ public class Login extends Activity {
     private EditText password;
     private Button login_btn;
     private static TextView message;
-    static final String SERVERIP = "140.113.167.14";//"192.168.1.30";//"140.113.167.14"
+    static final String SERVERIP = "192.168.1.250";//"140.113.167.14"
     static final int SERVERPORT = 9000; //8000= echo server, 9000=real server
     private String str1="0",str2="0", msg="";
     private static Socket socket;
@@ -119,7 +119,7 @@ public class Login extends Activity {
     private void InitServer() {
         SocketHandler.closeSocket();
         socket = SocketHandler.initSocket(SERVERIP, SERVERPORT);
-        String init = "CONNECT\tSC_1<END>";
+        String init = "CONNECT\tSC_2<END>";
         SocketHandler.writeToSocket(init);
 
         //receive result
@@ -168,21 +168,14 @@ public class Login extends Activity {
         @Override
         protected String doInBackground(String... strings) {
             Log.d("Mylog", "Waitting to connect...");
-            //message.setText("Waitting to connect......");
             publishProgress("Waitting to connect...");
-            //socket = new Socket(SERVERIP, SERVERPORT);
-            //InputStream in = socket.getInputStream();
-            //OutputStream out = socket.getOutputStream();
-            //Log.d("Mylog", "Connected!!");
-            //publishProgress("Connected!!");
 
-            //String str_u = username.getText().toString();
-            //String str_p = MD5.getMD5EncryptedString(password.getText().toString());
-            String str_u = "test";
-            String str_p = MD5.getMD5EncryptedString("123");
+            String str_u = username.getText().toString();
+            String str_p = MD5.getMD5EncryptedString(password.getText().toString());
+            //String str_u = "test";
+            //String str_p = MD5.getMD5EncryptedString("123");
             String cmd = "LOGIN\tMASTER\t" + str_u + "\t" + str_p + "<END>";
             SocketHandler.writeToSocket(cmd);
-            //SocketHandler.getOutput();
             str1 = SocketHandler.getOutput();
             String[] lines = null;
             if(str1 != null) {
