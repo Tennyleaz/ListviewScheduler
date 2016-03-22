@@ -36,6 +36,7 @@ public class Login extends Activity {
     private static Socket socket;
     private static ProgressDialog pd;
     private static short connected;
+    static final String version = "v1.0.1";
     //private Thread t;
 
     @Override
@@ -49,6 +50,9 @@ public class Login extends Activity {
         password = (EditText) findViewById(R.id.password);
         login_btn = (Button) findViewById(R.id.login_btn);
         login_btn.setOnClickListener(onclick);
+        //TextView appid = (TextView) findViewById(R.id.appID);
+        TextView ver = (TextView) findViewById(R.id.versionNumber);
+        ver.setText(version);
 
         if(!isNetworkConnected()){  //close when not connected
             AlertDialog.Builder dialog = new AlertDialog.Builder(Login.this);

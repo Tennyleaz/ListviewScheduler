@@ -56,6 +56,7 @@ public class SocketHandler {
 
     public static synchronized void setTimeout(boolean timeout, int duration) {
         try {
+            Log.d("mylog", "setTimeout to "  + duration);
             if (timeout) {
                 socket.setSoTimeout(duration);
             } else {

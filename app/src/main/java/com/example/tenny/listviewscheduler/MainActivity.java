@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }).start();
-        task = new UpdateTask().execute();
+
     }
 
 
@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
     private void InitServer() {
         Log.d("mylog", "InitServer...");
         SocketHandler.setTimeout(true, 2000);
+        Log.d("mylog", "InitServer...");
         String s = "QUERY\tSCHEDULE_DETAIL<END>";
         SocketHandler.writeToSocket(s);
         //Log.d("mylog", "send:" + s);
@@ -278,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {// handler接收到消息後就會執行此方法
             updateUI();
             Log.d("mylog", "handleMessage...");
+            task = new UpdateTask().execute();
             pd.dismiss();// 關閉ProgressDialog
         }
     };
