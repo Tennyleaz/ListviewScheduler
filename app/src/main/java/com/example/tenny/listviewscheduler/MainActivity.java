@@ -50,17 +50,17 @@ public class MainActivity extends AppCompatActivity {
     private String schedule_detail, work_area, work_type;
     private static ProgressDialog pd;
     private AsyncTask task = null;
-    private static ListView lv1_1, lv1_2, lv1_3, lv1_4, lv1_5, lv1_6, lv1_7, lv1_8, lv1_9, lv2_1, lv2_2, lv2_3, lv2_4, lv2_5, lv2_6, lv2_7, lv2_8, lv2_9, lvO1, lvO2, lvO3, lvO4, lvO5, lvO6, lvOff1, lvOff2, lvOff3;
+    private static ListView lv1_1, lv1_2, lv1_3, lv1_4, lv1_5, lv1_6, lv1_7, lv1_8, lv1_9, lv2_1, lv2_2, lv2_3, lv2_4, lv2_5, lv2_6, lv2_7, lv2_8, lv2_9, lvO1, lvO2, lvO3, lvO4, lvO5, lvO6, lvO7, lvOff1, lvOff2, lvOff3;
     private static WorkerArrayAdapter listAdapter1_1, listAdapter1_2, listAdapter1_3, listAdapter1_4, listAdapter1_5, listAdapter1_6, listAdapter1_7, listAdapter1_8, listAdapter1_9,
             listAdapter2_1, listAdapter2_2, listAdapter2_3, listAdapter2_4, listAdapter2_5, listAdapter2_6, listAdapter2_7, listAdapter2_8, listAdapter2_9,
-            listAdapterO1, listAdapterO2, listAdapterO3, listAdapterO4, listAdapterO5, listAdapterO6, listAdapterOff1, listAdapterOff2, listAdapterOff3;
+            listAdapterO1, listAdapterO2, listAdapterO3, listAdapterO4, listAdapterO5, listAdapterO6, listAdapterO7, listAdapterOff1, listAdapterOff2, listAdapterOff3;
     //private static ArrayList<Worker> workerList;
     public static HashMap reverseWorkPlacesMap, reverseWorkTimesMap;
     private static HashMap workerList, workPlacesMap, workTimesMap;
     private static boolean dataChanged;
     private static String changedWorkerName;
     private static int currentPage;
-    private ArrayList<Worker> lm11, lm12, lm13, lm14, lm15, lm16, lm17, lm18, lm19, lm21, lm22, lm23, lm24, lm25, lm26, lm27, lm28, lm29, lo1, lo2, lo3, lo4, lo5, lo6, lof1, lof2, lof3;
+    private ArrayList<Worker> lm11, lm12, lm13, lm14, lm15, lm16, lm17, lm18, lm19, lm21, lm22, lm23, lm24, lm25, lm26, lm27, lm28, lm29, lo1, lo2, lo3, lo4, lo5, lo6, lo7, lof1, lof2, lof3;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         lo4 = new ArrayList<Worker>();
         lo5 = new ArrayList<Worker>();
         lo6 = new ArrayList<Worker>();
+        lo7 = new ArrayList<Worker>();
         lof1 = new ArrayList<Worker>();
         lof2 = new ArrayList<Worker>();
         lof3 = new ArrayList<Worker>();
@@ -170,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         listAdapterO4 =  new WorkerArrayAdapter(this, lo4);
         listAdapterO5 =  new WorkerArrayAdapter(this, lo5);
         listAdapterO6 =  new WorkerArrayAdapter(this, lo6);
+        listAdapterO7 =  new WorkerArrayAdapter(this, lo7);
         listAdapterOff1 =  new WorkerArrayAdapter(this, lof1);
         listAdapterOff2 =  new WorkerArrayAdapter(this, lof2);
         listAdapterOff3 =  new WorkerArrayAdapter(this, lof3);
@@ -291,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
         listAdapterO4.clear();
         listAdapterO5.clear();
         listAdapterO6.clear();
+        listAdapterO7.clear();
         listAdapter1_1.clear();
         listAdapter1_2.clear();
         listAdapter1_3.clear();
@@ -410,6 +413,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case "6091":
                                 listAdapter2_9.add(newWorker);
+                                break;
+                            case "6999":
+                                listAdapterO7.add(newWorker);
                                 break;
                         } //end switch
                     } //end if
@@ -556,6 +562,10 @@ public class MainActivity extends AppCompatActivity {
                                         listAdapter2_9.remove(w);
                                         listAdapter2_9.notifyDataSetChanged();
                                         break;
+                                    case  "6999":
+                                        listAdapterO7.remove(w);
+                                        listAdapterO7.notifyDataSetChanged();
+                                        break;
                                     default:
                                         Log.e("mylog", "error case:" + w.Name);
                                         break;
@@ -696,6 +706,9 @@ public class MainActivity extends AppCompatActivity {
                                         listAdapter2_9.add(w);
                                         listAdapter2_9.notifyDataSetChanged();
                                         break;
+                                    case "6999":
+                                        listAdapterO7.add(w);
+                                        listAdapterO7.notifyDataSetChanged();
                                     default:
                                         Log.e("mylog", "error case:" + workPlacesMap.get(selectedPlace));
                                         break;
@@ -930,18 +943,21 @@ public class MainActivity extends AppCompatActivity {
             lvO4 = (ListView) rootView.findViewById(R.id.listViewO4);
             lvO5 = (ListView) rootView.findViewById(R.id.listViewO5);
             lvO6 = (ListView) rootView.findViewById(R.id.listViewO6);
+            lvO7 = (ListView) rootView.findViewById(R.id.listViewO7);
             lvO1.setAdapter(listAdapterO1);
             lvO2.setAdapter(listAdapterO2);
             lvO3.setAdapter(listAdapterO3);
             lvO4.setAdapter(listAdapterO4);
             lvO5.setAdapter(listAdapterO5);
             lvO6.setAdapter(listAdapterO6);
+            lvO7.setAdapter(listAdapterO7);
             lvO1.setOnItemClickListener(changeScheduleListener);
             lvO2.setOnItemClickListener(changeScheduleListener);
             lvO3.setOnItemClickListener(changeScheduleListener);
             lvO4.setOnItemClickListener(changeScheduleListener);
             lvO5.setOnItemClickListener(changeScheduleListener);
             lvO6.setOnItemClickListener(changeScheduleListener);
+            lvO7.setOnItemClickListener(changeScheduleListener);
             return rootView;
         }
 
