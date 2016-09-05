@@ -36,7 +36,7 @@ public class Login extends Activity {
     private static Socket socket;
     private static ProgressDialog pd;
     private static short connected;
-    static final String version = "v1.0.1";
+    static final String version = "v1.0.2";
     //private Thread t;
 
     @Override

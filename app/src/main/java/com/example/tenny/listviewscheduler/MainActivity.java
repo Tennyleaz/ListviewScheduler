@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -450,6 +451,7 @@ public class MainActivity extends AppCompatActivity {
             List<String> places = new ArrayList<String>(workPlacesMap.keySet());
             /*{"辦公室", "濾嘴風送機", "濾嘴捲製機", "裝箱機", "香菸解剖機", "維修部", "生產線1,捲菸機", "生產線1,包裝機", "生產線2,捲菸機", "生產線2,包裝機", "生產線3,捲菸機", "生產線3,包裝機",
                 "生產線4,捲菸機", "生產線4,包裝機", "生產線5,捲菸機", "生產線5,包裝機", "生產線6,捲菸機", "生產線6,包裝機", "生產線7,捲菸機", "生產線7,包裝機", "生產線8,捲菸機", "生產線8,包裝機", "生產線9,捲菸機", "生產線9,包裝機"};*/
+            java.util.Collections.sort(places, Collator.getInstance());  //sort the list
             List<String> times = new ArrayList<String>(workTimesMap.keySet());//{"早班", "晚班", "出差", "請假"};
             placeList = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_spinner_dropdown_item, places);
             timeList = new ArrayAdapter<String>(listView.getContext(), android.R.layout.simple_spinner_dropdown_item, times);
